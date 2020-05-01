@@ -1,0 +1,28 @@
+#include<iostream>
+using namespace std;
+int main() {
+//实际上跟砍树很类似,不过现在树能够复生了,最后求复生的那一棵 时间复杂度O(n2)？
+	bool b[2000001] = {0}; //默认没有树
+	int n,t;
+	double a;
+	cin >> n;
+	//开了n次 大循环n次,内部循环从a到t;
+	for(int i = 1; i <= n; i++) {
+		cin >> a >> t;
+		for(int j = 1; j <= t; j++) {
+			if(b[(int)(a*j)]) b[(int)(a*j)] = 0; //如果有树就砍掉
+			else b[(int)(a*j)] = 1; //如果没有就种上一棵新的
+		}
+	}
+	for(int i = 1; i <= 2000000; i++) {
+		if(b[i] == 1) {  //求仅剩的那一棵新的
+			cout << i;
+      break;
+		}
+	}
+}
+
+
+// 优化套路 采用^运算符
+//因为都是成对出现的,该运算符又符合交换律
+//所以最后返回那唯一一个值时间复杂度O(n)
